@@ -4,30 +4,20 @@
 <div class="container relative ">
 <div class="left-[-100px] opacity-0 sm:hidden md:hidden lg:flex lg:w-1/2  left h-screen absolute" id="left"></div>
 
-<div class=" right-[100px] w-[400px] p-3 h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
+<div id="login" class="opacity-0 shadow-md right-[100px] w-[400px] p-3 h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
 
-<div class="flex w-full justify-between">
-<div class="border-b-green-600 me-1 w-[33%] border-b-solid text-center border-b-[3px] p-1 font-bold color text-green-600 cursor-pointer">Talaba</div>
-<div class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer" >O'qituvchi</div>
-<div class="border-b-gray-200 w-[33%] border-b-solid border-b-[3px] p-1 text-center font-bold cursor-pointer">Dekanat</div>
+<div  class="flex w-full justify-between">
+<div @click="first()"  :class="pages.first?'border-b-solid border-b-green-600 border-b-[3px]  text-green-600':'border-b-gray-200'" class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer">Talaba</div>
+<div @click="second()" :class="pages.second?'border-b-solid border-b-green-600 border-b-[3px]  text-green-600':'border-b-gray-200'" class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer" >O'qituvchi</div>
+<div @click="third" :class="pages.third?'border-b-solid border-b-green-600 border-b-[3px]  text-green-600':'border-b-gray-200'" class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer">Dekanat</div>
 
     
 </div>
 <div class="user_back m-auto mt-3 w-[150px] h-[150px]"></div>
-
-<div class="w-[100%] mx-auto p-3">
-<div class="h-8 font-medium mt-3 text-center">Hemis Talaba</div>
-    <form @submit.prevent="submit">
-        <n-input v-model:value="login" type="text" placeholder="Login" name="hbhjdsbsdfhjsdcbs"  />
-
-        <n-input v-model:value="password" class="mt-5" aria-required="true" type="password" show-password-on="mousedown" placeholder="Password"  />
-        <n-checkbox  class="mt-3 checked:bg-black">
-      Eslab qolish
-    </n-checkbox>
-        <button type="submit" class=" border-none mt-5 w-[100%] text-base  bg-green-600 p-3 text-white mx-auto  rounded-md"> Kirish</button>
-    </form>
-    
-</div>
+<!-- <component :is="login_component"></component> -->
+<student v-if="pages.first"/>
+<teacher v-if="pages.second" />
+<dean v-if="pages.third" />
 </div>
 <div>
   
@@ -41,19 +31,20 @@
 import {reactive, onMounted,ref,defineComponent} from "vue";
 import gsap from 'gsap';
 import {NInput, NCheckbox, useMessage} from "naive-ui";
-const message = useMessage()
+// komponentlar
+import student from "./login_component/student.vue"
+import dean from "./login_component/dean.vue";
+import teacher from "./login_component/teracher.vue";
 
-
-const login = ref('1');
-const password = ref('');
-
-const submit = function(){
-
-    if(login.value == '') return message.info('Loginni kiriting', {duration:3000})
-    if(password.value == '') return message.info('Parolni kiriting', {duration:3000})
-  return message.error("Parol yoki login xato", {duration:3000})
-
-  }
+let login_component = student;
+let pages;
+if(localStorage.role){pages = reactive(JSON.parse(localStorage.role))}
+else
+pages = reactive( {
+    first : true,
+    second : false,
+    third : false
+}); 
 
 onMounted(()=>{
     gsap.to('#left',
@@ -63,7 +54,41 @@ onMounted(()=>{
         x:100,
         opacity:1
     })
+
+
+    gsap.to('#login',
+    {
+        duration:4, 
+        // delay:3,
+        // x:100,
+        opacity:1
+    })
 });
+function first(){
+    pages.first = true;
+    pages.second = false;
+    pages.third = false;
+    localStorage.setItem("role",JSON.stringify(pages))
+    // login_component = student;
+}
+
+function second(){
+    pages.first = false;
+    pages.second = true;
+    pages.third = false;
+    localStorage.setItem("role",JSON.stringify(pages))
+
+    // login_component = teacher;
+}
+
+function third(){
+    pages.first = false;
+    pages.second = false;
+    pages.third = true;
+    localStorage.setItem("role",JSON.stringify(pages))
+
+    // login_component = dean;
+}
 
 
 </script>
