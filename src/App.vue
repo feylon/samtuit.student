@@ -1,7 +1,14 @@
 <template>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+<div class="w-screen h-screen w-[100%]">
+  
+  <n-message-provider>
+    <RouterView></RouterView>
+  
+</n-message-provider>
+
+
+</div>
 </template>
-<script setup></script>
+<script setup>
+</script>
 <style scoped></style>

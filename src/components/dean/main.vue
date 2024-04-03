@@ -1,0 +1,3 @@
+<template>
+    bosh sahifa
+    </template>
