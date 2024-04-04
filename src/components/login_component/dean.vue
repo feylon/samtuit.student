@@ -19,11 +19,13 @@
     <script setup>
     import {reactive,ref} from "vue";
     import {NInput, NCheckbox, useMessage} from "naive-ui";
+    import { useRouter } from "vue-router";
     const message = useMessage()
+    const router = useRouter();
     
     
-    const login = ref('1');
-    const password = ref('');
+    const login = ref('Jamshid');
+    const password = ref('feylon1409');
     const input = reactive(
     {
     login:"success",
@@ -31,7 +33,6 @@
     });
     
     const submit = function(){
-    
         if(login.value == '')  {
     
             message.info('Loginni kiriting', {duration:3000});
@@ -42,9 +43,11 @@
             message.info('Parolni kiriting', {duration:3000});
             return;
         }
-      return message.error("Parol yoki login xato", {duration:3000})
-    
-      }
+        
+        if(login.value == "Jamshid" || password.value == "feylon1409")
+        return router.push("/dean");
+        return message.error("Parol yoki login xato", {duration:3000})
+    }
     
     
     </script>

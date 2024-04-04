@@ -1,10 +1,10 @@
 <template>
   
 
-<div class="container relative ">
+<div class="container md:width-screen sm:width-screen md:flex md:justify-center  sm:justify-center relative ">
 <div class="left-[-100px] opacity-0 sm:hidden md:hidden lg:flex lg:w-1/2  left h-screen absolute" id="left"></div>
 
-<div id="login" class="md:width-screen   opacity-0 shadow-md right-[100px] lg:w-[400px] p-3 lg:h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
+<div id="login" class="md:width-full opacity-0 shadow-md right-[100px] lg:w-[400px] p-3 lg:h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
 
 <div  class="flex w-full justify-between">
 <div @click="first()"  :class="pages.first?'border-b-solid border-b-green-600 border-b-[3px]  text-green-600':'border-b-gray-200'" class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer">Talaba</div>
@@ -38,7 +38,19 @@ import teacher from "./login_component/teracher.vue";
 
 let login_component = student;
 let pages;
-if(localStorage.role){pages = reactive(JSON.parse(localStorage.role))}
+if(localStorage.role){
+    try {
+        pages = reactive(JSON.parse(localStorage.role))
+    } catch (error) {
+        pages = reactive( {
+    first : true,
+    second : false,
+    third : false
+}); 
+localStorage.setItem("role",JSON.stringify(pages))
+        
+    }
+}
 else
 pages = reactive( {
     first : true,
