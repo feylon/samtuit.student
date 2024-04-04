@@ -4,7 +4,7 @@
 <div class="container relative ">
 <div class="left-[-100px] opacity-0 sm:hidden md:hidden lg:flex lg:w-1/2  left h-screen absolute" id="left"></div>
 
-<div id="login" class="opacity-0 shadow-md right-[100px] w-[400px] p-3 h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
+<div id="login" class="md:width-screen   opacity-0 shadow-md right-[100px] lg:w-[400px] p-3 lg:h-[500px]  font-serif border-solid border-[2px] absolute mt-[60px] rounded-md">
 
 <div  class="flex w-full justify-between">
 <div @click="first()"  :class="pages.first?'border-b-solid border-b-green-600 border-b-[3px]  text-green-600':'border-b-gray-200'" class="border-b-gray-200 me-1 w-[33%] border-b-solid border-b-[3px] text-center p-1 font-bold cursor-pointer">Talaba</div>
