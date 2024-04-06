@@ -45,7 +45,7 @@
         }
         
         if(login.value == "Jamshid" || password.value == "feylon1409")
-        return router.push("/dean");
+        return router.push("/dean_dashtboard");
         return message.error("Parol yoki login xato", {duration:3000})
     }
     

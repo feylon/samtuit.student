@@ -10,6 +10,6 @@ createRouter({
     [
         {path:"/", component:login},
         // dekan uchun routerlar
-        {path:"/dean", component:main_dean,name:"dean"}
+        {path:"/dean_dashtboard", component:main_dean,name:"dean_dashtboard"}
     ]
 });
