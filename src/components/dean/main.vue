@@ -18,7 +18,7 @@ menu
 </div>
 
 <n-dropdown :options="option" @select="handleSelect">
-    <div class="profil  text-white  border-l-[1px] h-[100%] flex items-center w-[180px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
+    <div class="profil  text-white  border-l-[1px] h-[100%] flex justify-center items-center w-[240px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
 <img src="../../pictures/profil.png" class="rounded-[50%] w-[35px]" alt="">
 <!-- <n-avatar
       
@@ -29,8 +29,8 @@ menu
     <div class="flex items-center justify-center flex-col mt-1">
     <span class="block ms-2 mt-2 font-bold profil text-[13px]">   Ergashev J.J.</span>
 <span class="block mb-3 text-[11px] text-center">
-    Dekan
-
+    Dekan 
+    
 </span>
 </div>
 </div>
@@ -44,53 +44,105 @@ menu
     <script setup>
 import { ref, h } from 'vue';
 import { useMessage, NAvatar, NText } from "naive-ui";
+import { render } from 'naive-ui/es/_utils';
 
-function renderCustomHeader() {
-  return h(
-    "div",
-    {
-      style: "display: flex; align-items: center; padding: 8px 12px;"
-    },
-    [
-      h(NAvatar, {
-        round: true,
-        style: "margin-right: 12px;",
-        src: "../../pictures/profil.png"
-      }),
-      h("div", null, [
-        h("div", null, [
-          h(NText, { depth: 2 }, { default: () => "A worker at Hangzhou" })
-        ]),
-        h("div", { style: "font-size: 12px;" }, [
-          h(NText, { depth: 3 }, { default: () => "<???>" })
-        ])
-      ])
-    ]
-  );
+
+let data = {
+  "_id": {
+    "$oid": "65fdd8d1c318369b559fad4e"
+  },
+  "name": "Ergashev",
+  "date_of_brith": "9/23/2002",
+  "surname": "Jamshid",
+  "active": true,
+  "date_of_join": "3/23/2024",
+  "phone": "+998775634",
+  "status": true,
+  "__v": 0
 }
-
-
 let option = [
         {
           key: "header",
           type: "render",
-          render: renderCustomHeader
+          render:()=> h("div",{class:"flex p-3 ps-2 w-[210px]"},
+          [
+          h("div", {class:"flex items-center"},[
+          h("img", {
+        round: true,
+        style: "margin-right: 12px;",
+        src: "http://localhost:5173/src/pictures/profil.png",
+        class:"w-[60px] rounded-md m-3"
+      }),
+
+      h('div',
+      [
+      h("div",{class:"text-[13px]"},h("div",
+      {innerHTML :`${data.name } ${data.surname }`}
+      )),
+      
+      h("div",{class:"text-[13px] text-center"},h("div",
+      {innerHTML :`Dekan`}
+      )),
+          ])
+      ])
+
+        ]
+          )
         },
         {
-          key: "header-divider",
-          type: "divider"
+          key: "update_photo",
+          type: "render",
+          label:"salom",
+          render:()=>{
+            return h("div",{class:"ps-4 duration-700 hover:bg-green-100 cursor-pointer flex border-t-[1px] border-solid pt-3"},[
+              h("span",
+         
+            {innerHTML:`<span class="material-symbols-outlined text-green-600">add_a_photo</span>` },
+            {class:""}
+            ),
+            h("div",
+            {class:"text-black ps-3"},
+            {default:()=>"Profil rasmini yangilash"}
+            )
+          ])
+          }
         },
         {
-          label: "lpsum1",
-          key: "stmt1"
+          key: "own_info",
+          type: "render",
+          label:"salom",
+          render:()=>{
+            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-green-100 flex border-t-[1px] border-solid pt-3"},[
+              h("span",
+         
+            {innerHTML:`<span class="material-symbols-outlined text-green-600">info</span>` },
+            {class:""}
+            ),
+            h("div",
+            {class:"text-black ps-3"},
+            {default:()=>"Shaxsiy ma'lumotlar"}
+            )
+          ])
+          }
         },
+
         {
-          label: "lpsum2",
-          key: "stmt2"
-        },
-        {
-          label: "lpsum3",
-          key: "stmt3"
+          key: "own_info",
+          type: "render",
+          label:"salom",
+          render:()=>{
+            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-red-100 flex border-t-[1px] border-solid pt-3"},[
+              h("span",
+         
+            {innerHTML:`<span class="material-symbols-outlined text-red-600">logout</span>` },
+            {class:""}
+            ),
+            h("div",
+            {class:"text-red-700 ps-3"},
+            {default:()=>"Chiqish"}
+            )
+          ])
+          }
         }
       ];
       function handleSelect(key) {
