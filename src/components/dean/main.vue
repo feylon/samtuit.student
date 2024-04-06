@@ -3,7 +3,7 @@
 <div>
     <div class="flex h-100">
         <div class="bg-green-700 h-[40px]  text-white items-center h-[100%] flex  font-semibold text-center w-[300px] justify-center ">
-        <span class="text-[20px] select-all">
+        <span class="text-[20px]  select-all">
             Hemis OTM
         </span>
         
@@ -17,8 +17,8 @@ menu
     </div>
 </div>
 
-<n-dropdown :options="option" @select="handleSelect">
-    <div class="profil  text-white  border-l-[1px] h-[100%] flex justify-center items-center w-[240px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
+<n-dropdown :options="option" >
+    <div class="profil  text-white select-none border-l-[1px] h-[100%] flex justify-center items-center w-[240px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
 <img src="../../pictures/profil.png" class="rounded-[50%] w-[35px]" alt="">
 <!-- <n-avatar
       
@@ -42,12 +42,21 @@ menu
 
     </template>
     <script setup>
-import { ref, h } from 'vue';
-import { useMessage, NAvatar, NText } from "naive-ui";
-import { render } from 'naive-ui/es/_utils';
+import { onMounted,ref, h, reactive } from 'vue';
+import { useRouter } from 'vue-router';
+// let option = reactive();
+const router = useRouter();
+   let itr = ref(0);
+  //  setInterval(() => {
+  //   console.log(itr.value);
+  //   itr.value ++
+  //  }, 1000);
 
 
-let data = {
+
+
+
+  let data = {
   "_id": {
     "$oid": "65fdd8d1c318369b559fad4e"
   },
@@ -64,24 +73,25 @@ let option = [
         {
           key: "header",
           type: "render",
-          render:()=> h("div",{class:"flex p-3 ps-2 w-[210px]"},
+          render:()=> h("div",{class:"flex p-3 ps-2 w-[215px]"},
           [
-          h("div", {class:"flex items-center"},[
+          h("div", {class:"flex items-center select-none"},[
           h("img", {
         round: true,
         style: "margin-right: 12px;",
         src: "http://localhost:5173/src/pictures/profil.png",
-        class:"w-[60px] rounded-md m-3"
+        class:"w-[60px] rounded-md m-3",
+        title: `${data.name } ${data.surname }`
       }),
 
       h('div',
       [
-      h("div",{class:"text-[13px]"},h("div",
+      h("div",{class:"text-[13px] font-bold"},h("div",
       {innerHTML :`${data.name } ${data.surname }`}
       )),
       
       h("div",{class:"text-[13px] text-center"},h("div",
-      {innerHTML :`Dekan`}
+      {innerHTML :`Dekan ${itr.value}`}
       )),
           ])
       ])
@@ -125,17 +135,40 @@ let option = [
           ])
           }
         },
-
         {
-          key: "own_info",
+          key: "profil_settings",
           type: "render",
           label:"salom",
           render:()=>{
-            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-red-100 flex border-t-[1px] border-solid pt-3"},[
+            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-green-100 flex border-t-[1px] border-solid pt-3"},[
+              h("span",
+         
+            {innerHTML:`<span class="material-symbols-outlined text-green-600">manage_accounts</span>` },
+            {class:""}
+            ),
+            h("div",
+            {class:"text-black ps-3"},
+            {default:()=>"Profilni sozlash"}
+            )
+          ])
+          }
+        },
+        {
+          key: "own_info",
+          type: "render",
+          props: {
+            onClick: () => {
+              console.log('Tizimdan chiqish');
+              return router.push("/")
+            }},
+          label:"salom",
+          render:()=>{
+            return h("div", {class:"ps-4 duration-700 cursor-pointer hover:bg-red-100 flex border-t-[1px] border-solid pt-3"},[
               h("span",
          
             {innerHTML:`<span class="material-symbols-outlined text-red-600">logout</span>` },
-            {class:""}
+            {class:""},
+            
             ),
             h("div",
             {class:"text-red-700 ps-3"},
@@ -144,10 +177,8 @@ let option = [
           ])
           }
         }
+        
       ];
-      function handleSelect(key) {
-        console.log(key);
-      }
 
 </script>
     <style>
