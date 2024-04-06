@@ -1,15 +1,15 @@
 <template>
-<div>
+<div class="h-screen min-w-max-[100%]">
   <div  class="w-100 h-[40px] bg-green-600  flex ps-0 justify-between items-center">
 <div>
     <div class="flex h-100">
-        <div class="bg-green-700 h-[40px]  text-white items-center h-[100%] flex  font-semibold text-center w-[300px] justify-center ">
+        <div class="bg-black h-[40px]  text-white items-center h-[100%] flex  font-semibold text-center w-[240px] justify-center ">
         <span class="text-[20px]  select-all">
             Hemis OTM
         </span>
         
     </div>
-<div class="text-white cursor-pointer ms-2 items-center flex">
+<div @click="collapsed = !collapsed" class="text-white cursor-pointer ms-2 items-center flex">
     <span class="text-[20px] material-symbols-outlined">
 menu
 </span>
@@ -37,8 +37,33 @@ menu
 </div>  
 <!-- Navigation tugadi -->
 
+<div class="text-white relative h-[100%] flex w-[100%] w-max-[100%]">
+  <!-- <div class="bg-black text-white h-[100%] flex w-[303px] border-t-[1px] border-t-gray-800  border-e-[3px] border-green-100 border-solid">
+    
+
+</div> -->
 
 
+  <n-layout has-sider >
+    <n-layout-sider 
+      bordered
+      class="bg-black text-white"
+      collapse-mode="width"
+      :collapsed-width="64"
+      :width="240"
+      :collapsed="collapsed"
+      :background-color="'black'"
+      show-trigger
+      @collapse="collapsed = true"
+      @expand="collapsed = false"
+      
+      >
+      <n-menu :options="menuOptions" />
+    </n-layout-sider>
+    <n-layout />
+  </n-layout>
+
+</div>
 
 </div> 
 
@@ -47,8 +72,15 @@ menu
     </template>
     <script setup>
 import { onMounted,ref, h, reactive } from 'vue';
-import { useRouter } from 'vue-router';
-// let option = reactive();
+import { RouterLink,useRouter } from 'vue-router';
+import { NIcon } from "naive-ui";
+import {
+  LaptopOutline as WorkIcon,
+  LogOutOutline as HomeIcon
+} from "@vicons/ionicons5";
+
+
+
 const router = useRouter();
   let itr = ref(0)
   setInterval(() => {
@@ -174,7 +206,6 @@ const router = useRouter();
 onMounted( async ()=>{
 let backend =   new Promise((resolve, reject) => {
 
-// через 1 секунду готов результат: result
 setTimeout(() => resolve({
   "_id": {
     "$oid": "65fdd8d1c318369b559fad4e"
@@ -190,7 +221,6 @@ setTimeout(() => resolve({
   "__v": 0
 }), 3000);
 
-// через 2 секунды — reject с ошибкой, он будет проигнорирован
 setTimeout(() => reject(new Error("ignored")),  5000);
 
 });
@@ -203,7 +233,30 @@ try {
   console.log("xatolik", error)
 }
 
-})
+});
+
+// Yon menyu uchun
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) });
+}
+
+const menuOptions = [
+{
+    label: ()=>{
+      h(RouterLink,
+      {
+        to:{
+          path:"/",
+          name:"login", params:"ewdjk"}},
+      {default:()=>"Chiqish"}
+      )
+    },
+    key: "go-back-home",
+    icon: renderIcon(HomeIcon)
+  }
+]
+
+let collapsed = ref(true);
 </script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
