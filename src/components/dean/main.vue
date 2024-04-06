@@ -1,5 +1,6 @@
 <template>
-<div class="w-100 h-[40px] bg-green-600  flex ps-0 justify-between items-center">
+<div>
+  <div  class="w-100 h-[40px] bg-green-600  flex ps-0 justify-between items-center">
 <div>
     <div class="flex h-100">
         <div class="bg-green-700 h-[40px]  text-white items-center h-[100%] flex  font-semibold text-center w-[300px] justify-center ">
@@ -17,26 +18,29 @@ menu
     </div>
 </div>
 
-<n-dropdown :options="option" >
+<n-dropdown v-if ='1' :options="option" >
     <div class="profil  text-white select-none border-l-[1px] h-[100%] flex justify-center items-center w-[240px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
-<img src="../../pictures/profil.png" class="rounded-[50%] w-[35px]" alt="">
-<!-- <n-avatar
-      
-      :size="small"
-      src="../../pictures/profil.png"
-    /> -->
+<img  :src="data.url" class="rounded-[50%] w-[35px]" alt="">
+
 <div>
     <div class="flex items-center justify-center flex-col mt-1">
-    <span class="block ms-2 mt-2 font-bold profil text-[13px]">   Ergashev J.J.</span>
+    <span class="block ms-2 mt-2 font-bold profil text-[13px]">  {{`${data.name } ${data.surname }` }}</span>
 <span class="block mb-3 text-[11px] text-center">
-    Dekan 
-    
+    Dekan  
+    <span v-show="false">{{itr}}</span>
 </span>
 </div>
 </div>
 </div>
 </n-dropdown>
-</div>   
+
+</div>  
+<!-- Navigation tugadi -->
+
+
+
+
+</div> 
 
 
 
@@ -46,30 +50,18 @@ import { onMounted,ref, h, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 // let option = reactive();
 const router = useRouter();
-   let itr = ref(0);
-  //  setInterval(() => {
-  //   console.log(itr.value);
-  //   itr.value ++
-  //  }, 1000);
-
-
-
-
-
-  let data = {
-  "_id": {
-    "$oid": "65fdd8d1c318369b559fad4e"
-  },
-  "name": "Ergashev",
-  "date_of_brith": "9/23/2002",
-  "surname": "Jamshid",
-  "active": true,
-  "date_of_join": "3/23/2024",
-  "phone": "+998775634",
-  "status": true,
-  "__v": 0
-}
-let option = [
+  let itr = ref(0)
+  setInterval(() => {
+    itr.value ++
+  }, 500);
+  let data = reactive({
+    name:"Ism",
+    surname:"Familiya",
+    url:"http://localhost:5173/src/pictures/user.png"
+  });
+  let fa = h("div", {innerHTML:"Jamshid"})
+  console.log(fa)
+  let option = [
         {
           key: "header",
           type: "render",
@@ -78,8 +70,8 @@ let option = [
           h("div", {class:"flex items-center select-none"},[
           h("img", {
         round: true,
-        style: "margin-right: 12px;",
-        src: "http://localhost:5173/src/pictures/profil.png",
+        style: "margin-right: 8px;",
+        src: data.url,
         class:"w-[60px] rounded-md m-3",
         title: `${data.name } ${data.surname }`
       }),
@@ -91,7 +83,7 @@ let option = [
       )),
       
       h("div",{class:"text-[13px] text-center"},h("div",
-      {innerHTML :`Dekan ${itr.value}`}
+      {innerHTML :`Dekan `}
       )),
           ])
       ])
@@ -179,7 +171,39 @@ let option = [
         }
         
       ];
+onMounted( async ()=>{
+let backend =   new Promise((resolve, reject) => {
 
+// через 1 секунду готов результат: result
+setTimeout(() => resolve({
+  "_id": {
+    "$oid": "65fdd8d1c318369b559fad4e"
+  },
+  "name": "Ergasheva",
+  "date_of_brith": "9/23/2002",
+  "surname": "Jamshid",
+  "active": true,
+  "date_of_join": "3/23/2024",
+  "phone": "+998775634",
+  "status": true, 
+  "url":"http://localhost:5173/src/pictures/login.png",
+  "__v": 0
+}), 3000);
+
+// через 2 секунды — reject с ошибкой, он будет проигнорирован
+setTimeout(() => reject(new Error("ignored")),  5000);
+
+});
+try {
+  let info = await backend;
+  data = info;
+  console.log(data)
+  
+} catch (error) {
+  console.log("xatolik", error)
+}
+
+})
 </script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
