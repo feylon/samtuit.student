@@ -18,9 +18,10 @@
     
     <script setup>
     import {reactive,ref} from "vue";
-    import {NInput, NCheckbox, useMessage} from "naive-ui";
+    import {NInput,useDialog, NCheckbox, useMessage} from "naive-ui";
     import { useRouter } from "vue-router";
     const message = useMessage()
+    const dialog = useDialog();
     const router = useRouter();
     
     
@@ -37,6 +38,8 @@
     
             message.info('Loginni kiriting', {duration:3000});
             input.login = 'warning';
+        
+              
             return;
         }
         if(password.value == '') {
