@@ -10,7 +10,7 @@
         
     </div>
 <div @click="collapsed = !collapsed" :class="collapsed?'flex justify-center  ps-3':''" class="text-white cursor-pointer ms-2 items-center flex">
-    <span class="text-[20px] m-1">
+    <span class="text-[20px]  m-1">
       <i class="fas fa-bars"></i>
 </span>
 </div>
