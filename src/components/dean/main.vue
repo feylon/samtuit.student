@@ -18,7 +18,7 @@ menu
     </div>
 </div>
 
-<n-dropdown v-if ='1' :options="option" >
+<n-dropdown  :options="option" >
     <div class="profil  text-white select-none border-l-[1px] h-[100%] flex justify-center items-center w-[240px] duration-700 cursor-pointer ps-3 border-solid pe-3 border-green-700 hover:bg-green-800">
 <img  :src="data.url" class="rounded-[50%] w-[35px]" alt="">
 
@@ -37,7 +37,7 @@ menu
 </div>  
 <!-- Navigation tugadi -->
 
-<div class="text-white relative h-[100%] flex w-[100%] w-max-[100%]">
+<div class="text-white relative h-[100%] flex w-[100%] h-max-[100%] overflow-x-scroll ">
   <!-- <div class="bg-black text-white h-[100%] flex w-[303px] border-t-[1px] border-t-gray-800  border-e-[3px] border-green-100 border-solid">
     
 
@@ -47,7 +47,7 @@ menu
   <n-layout has-sider >
     <n-layout-sider 
       bordered
-      class="bg-black text-white"
+      class="bg-gradient-to-r from-gray-950 to-green-700 text-white"
       collapse-mode="width"
       :collapsed-width="64"
       :width="240"
@@ -58,7 +58,17 @@ menu
       @expand="collapsed = false"
       
       >
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, non.
+    <div class="flex flex-col items-center justify-around h-[100%]">
+      <!-- <router-link> -->
+        <div v-for="i in 8" class="w-[140px] select-none cursor-pointer  rounded-lg flex items-center justify-evenly hover:bg-green-600 duration-500  p-1 pt-2 pb-2">
+      <span class="material-symbols-outlined">
+group
+</span>
+      <span>
+      Talabalar
+</span>    </div>
+      <!-- </router-link> -->
+    </div>
       <!-- <n-menu :options="menuOptions" /> -->
     </n-layout-sider>
     <n-layout />
@@ -74,16 +84,18 @@ menu
     <script setup>
 import { onMounted, onUnmounted, ref, h, reactive } from 'vue';
 import { RouterLink,useRouter } from 'vue-router';
-import { NIcon, useDialog, useMessage } from "naive-ui";
+import { NIcon,  useDialog, useMessage } from "naive-ui";
 import {
   LaptopOutline as WorkIcon,
   LogOutOutline as HomeIcon
 } from "@vicons/ionicons5";
 
-// *navivue o'zgaruvhcilari 
+// * o'zgaruvhcilari 
 const dialog = useDialog();
 const message = useMessage();
-// navivue o'zgaruvhcilari 
+let collapsed = ref(false);
+
+//  o'zgaruvhcilari 
 
 
 
@@ -134,7 +146,8 @@ try {
 
   let fa = h("div", {innerHTML:"Jamshid"})
   console.log(fa)
-  let option = [
+  const option = reactive(
+  [
         {
           key: "header",
           type: "render",
@@ -255,31 +268,12 @@ try {
           }
         }
         
-      ];
+      ])
       
 // Yon menyu uchun
-function renderIcon(icon) {
-  return () => h(NIcon, null, { default: () => h(icon) });
-}
 
-const menuOptions = [ h(RouterLink,{
-    label:"salom",
-    default:'sasas',
-      
-      
-        to: {
-          name: "home",
-          params: {
-            lang: "zh-CN"
-          }
-        
-      },
-      key: "go-back-home",
-    icon: renderIcon(HomeIcon)
-  })]
-;
 
-let collapsed = ref(true);
+
 </script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
