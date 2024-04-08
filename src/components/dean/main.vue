@@ -10,8 +10,8 @@
         
     </div>
 <div @click="collapsed = !collapsed" :class="collapsed?'flex justify-center  ps-3':''" class="text-white cursor-pointer ms-2 items-center flex">
-    <span class="text-[20px] material-symbols-outlined">
-menu
+    <span class="text-[20px]">
+      <i class="fas fa-bars"></i>
 </span>
 </div>
 
@@ -61,8 +61,8 @@ menu
     <div class="flex flex-col items-center justify-around h-[100%]">
       <!-- <router-link> -->
         <div v-for="i in 8" class="w-[140px] select-none cursor-pointer  rounded-lg flex items-center justify-evenly hover:bg-green-600 duration-500  p-1 pt-2 pb-2">
-      <span class="material-symbols-outlined">
-group
+      <span>
+        <i class="fas fa-user-group"></i>
 </span>
       <span>
       Talabalar
@@ -182,10 +182,10 @@ try {
           type: "render",
           label:"salom",
           render:()=>{
-            return h("div",{class:"ps-4 duration-700 hover:bg-green-100 cursor-pointer flex border-t-[1px] border-solid pt-3"},[
+            return h("div",{class:"ps-4 duration-700 flex items-center hover:bg-green-100 cursor-pointer flex border-t-[1px] border-solid "},[
               h("span",
          
-            {innerHTML:`<span class="material-symbols-outlined text-green-600">add_a_photo</span>` },
+            {innerHTML:`<span class="text-[20px] text-green-600 "><i class="fas fa-camera-rotate"></i></span>` },
             {class:""}
             ),
             h("div",
@@ -200,10 +200,10 @@ try {
           type: "render",
           label:"salom",
           render:()=>{
-            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-green-100 flex border-t-[1px] border-solid pt-3"},[
+            return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-green-100 flex border-t-[1px] border-solid  flex items-center"},[
               h("span",
          
-            {innerHTML:`<span class="material-symbols-outlined text-green-600">info</span>` },
+            {innerHTML:`<span class="text-[20px] text-green-600"><i class="fas fa-circle-info"></i></span>` },
             {class:""}
             ),
             h("div",
@@ -221,7 +221,7 @@ try {
             return h("div",{class:"ps-4 duration-700 cursor-pointer hover:bg-green-100 flex border-t-[1px] border-solid pt-3"},[
               h("span",
          
-            {innerHTML:`<span class="material-symbols-outlined text-green-600">manage_accounts</span>` },
+            {innerHTML:`<span class="text-[20px] text-green-600"><i class="fas fa-gears"></i></span>` },
             {class:""}
             ),
             h("div",
@@ -256,7 +256,7 @@ try {
             return h("div", {class:"ps-4 duration-700 cursor-pointer hover:bg-red-100 flex border-t-[1px] border-solid pt-3"},[
               h("span",
          
-            {innerHTML:`<span class="material-symbols-outlined text-red-600">logout</span>` },
+            {innerHTML:`<span class="size-[20px] text-red-600"><i class="fas fa-arrow-right-from-bracket"></i></span>` },
             {class:""},
             
             ),
