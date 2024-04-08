@@ -10,7 +10,7 @@
         
     </div>
 <div @click="collapsed = !collapsed" :class="collapsed?'flex justify-center  ps-3':''" class="text-white cursor-pointer ms-2 items-center flex">
-    <span class="text-[20px]">
+    <span class="text-[20px] m-1">
       <i class="fas fa-bars"></i>
 </span>
 </div>
@@ -47,7 +47,7 @@
   <n-layout has-sider >
     <n-layout-sider 
       bordered
-      class="bg-gradient-to-r from-gray-950 to-green-700 text-white"
+      class="bg-black text-white"
       collapse-mode="width"
       :collapsed-width="64"
       :width="240"
@@ -60,11 +60,11 @@
       >
     <div class="flex flex-col items-center justify-around h-[100%]">
       <!-- <router-link> -->
-        <div v-for="i in 8" class="w-[140px] select-none cursor-pointer  rounded-lg flex items-center justify-evenly hover:bg-green-600 duration-500  p-1 pt-2 pb-2">
-      <span>
+        <div :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'"  v-for="i in 8" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
+      <span class="rounded-lg bg-blue-600 p-3">
         <i class="fas fa-user-group"></i>
 </span>
-      <span>
+      <span :class="collapsed?'hidden':''" >
       Talabalar
 </span>    </div>
       <!-- </router-link> -->
@@ -119,7 +119,7 @@ setTimeout(() => resolve({
   "_id": {
     "$oid": "65fdd8d1c318369b559fad4e"
   },
-  "name": "Ergasheva",
+  "name": "Ergashev",
   "date_of_brith": "9/23/2002",
   "surname": "Jamshid",
   "active": true,
@@ -151,7 +151,7 @@ try {
         {
           key: "header",
           type: "render",
-          render:()=> h("div",{class:"flex p-3 ps-2 w-[215px]"},
+          render:()=> h("div",{class:"flex p-3 pb-0 ps-2 w-[215px]"},
           [
           h("div", {class:"flex items-center select-none"},[
           h("img", {
