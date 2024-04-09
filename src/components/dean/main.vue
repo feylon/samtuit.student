@@ -3,17 +3,17 @@
   <div  class="w-100 h-[40px] bg-green-600  flex ps-0 justify-between items-center">
 <div>
     <div class="flex h-100">
-        <div :class="collapsed?'w-0':'w-[239px]'" class="bg-black h-[40px]  duration-700 text-white items-center h-[100%] flex  font-semibold text-center justify-center ">
-        <span :class="collapsed?'hidden':''" class="text-[20px] duration-700 select-all">
+        <div  class=" h-[40px]  duration-700 text-white items-center h-[100%] flex  font-semibold text-center justify-center ">
+        <span class="text-[20px] duration-700 ms-[40px] select-all">
             Hemis OTM
         </span>
         
     </div>
-<div @click="collapsed = !collapsed" :class="collapsed?'flex justify-center  ps-3':''" class="text-white cursor-pointer ms-2 items-center flex">
+<!-- <div @click="collapsed = !collapsed" :class="collapsed?'flex justify-center  ps-3':''" class="text-white cursor-pointer ms-2 items-center flex">
     <span class="text-[20px]  m-1">
       <i class="fas fa-bars"></i>
 </span>
-</div>
+</div> -->
 
     </div>
 </div>
@@ -37,14 +37,10 @@
 </div>  
 <!-- Navigation tugadi -->
 
-<div class="text-white relative h-[100%] flex w-[100%] h-max-[100%] overflow-x-scroll ">
-  <!-- <div class="bg-black text-white h-[100%] flex w-[303px] border-t-[1px] border-t-gray-800  border-e-[3px] border-green-100 border-solid">
-    
+<div class="flex  h-[100%] h-max-[100%] ">
+  
 
-</div> -->
-
-
-  <n-layout has-sider >
+  <n-layout class="m-0 w-auto" has-sider >
     <n-layout-sider 
       bordered
       class="bg-black text-white"
@@ -58,9 +54,9 @@
       @expand="collapsed = false"
       
       >
-    <div class="flex flex-col items-center justify-around h-[100%]">
+    <div class="flex flex-col items-center pt-4 justify-start h-[100%]">
       <!-- <router-link> -->
-        <div :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'"  v-for="i in 8" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
+     <div :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
       <span class="rounded-lg bg-blue-600 p-3">
         <i class="fas fa-user-group"></i>
 </span>
@@ -71,11 +67,18 @@
     </div>
       <!-- <n-menu :options="menuOptions" /> -->
     </n-layout-sider>
+      <div class="p-3">
+        <RouterView>
+          
+        </RouterView>
+      </div>
+
+
     <n-layout />
   </n-layout>
 
+  
 </div>
-
 </div> 
 
 
