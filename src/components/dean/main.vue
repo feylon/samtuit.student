@@ -56,7 +56,7 @@
       >
     <div class="flex flex-col items-center pt-4 justify-start h-[100%]">
       <!-- <router-link> -->
-     <div :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
+     <div @click="router.push('/students')" :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
       <span class="rounded-lg bg-blue-600 p-3">
         <i class="fas fa-user-group"></i>
 </span>
@@ -97,12 +97,12 @@ import {
 const dialog = useDialog();
 const message = useMessage();
 let collapsed = ref(false);
+const router = useRouter();
 
 //  o'zgaruvhcilari 
 
 
 
-const router = useRouter();
   let itr = ref(0)
   setInterval(() => {
     itr.value ++
