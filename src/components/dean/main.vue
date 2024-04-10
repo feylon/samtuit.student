@@ -67,7 +67,7 @@
     </div>
       <!-- <n-menu :options="menuOptions" /> -->
     </n-layout-sider>
-      <div class="p-3">
+      <div class="p-10 w-[100%]">
         <RouterView>
           
         </RouterView>
