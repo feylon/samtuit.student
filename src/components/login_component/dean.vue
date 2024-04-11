@@ -21,6 +21,7 @@
     import {NInput,useDialog, NCheckbox, useMessage} from "naive-ui";
     import { useRouter } from "vue-router";
     import url from "../../../reuseble"
+    import axios from "axios"
     const message = useMessage()
     const dialog = useDialog();
     const router = useRouter();
@@ -51,20 +52,23 @@
             let data = await fetch(`${url.dean}/login`,{
                 method:"POST",
                 body:JSON.stringify({login:login.value,password:password.value}),
-                "Content-type":"application/json; charset=UTF-8"
+                headers:{"Content-Type":"application/json; charset=UTF-8"}
             });
             if(data.status == 200){
-                data = await data.json()
-                console.log(data)
-            }
+                data = await data.json();
+                localStorage.setItem("token",data.token)
 
+                return router.push("/dean_dashtboard");
+
+            }
+            if(data.status == 401)
+            return message.error("Parol yoki login xato", {duration:3000})
+            
+     
         } catch (error) {
-    console.log(error)        
+            console.log(error)
         }
-        if(login.value == "Jamshid" && password.value == "feylon1409")
-        return router.push("/dean_dashtboard");
-        return message.error("Parol yoki login xato", {duration:3000})
-   
+    
     }
     
     

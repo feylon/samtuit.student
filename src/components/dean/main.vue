@@ -92,7 +92,7 @@ import {
   LaptopOutline as WorkIcon,
   LogOutOutline as HomeIcon
 } from "@vicons/ionicons5";
-
+import url from "../../../reuseble";
 // * o'zgaruvhcilari 
 const dialog = useDialog();
 const message = useMessage();
@@ -105,9 +105,9 @@ const router = useRouter();
 
   let itr = ref(0)
   setInterval(() => {
-    itr.value ++
+    // itr.value ++
   }, 500);
-  let data = reactive({
+  let data = ref({
     name:"",
     surname:"",
     // url:"http://localhost:5173/src/pictures/user.png"
@@ -116,39 +116,43 @@ const router = useRouter();
 import "../../pictures/user.png"
 
   onMounted( async ()=>{
-let backend =   new Promise((resolve, reject) => {
+// let backend =   new Promise((resolve, reject) => {
 
-setTimeout(() => resolve({
-  "_id": {
-    "$oid": "65fdd8d1c318369b559fad4e"
-  },
-  "name": "Ergashev",
-  "date_of_brith": "9/23/2002",
-  "surname": "Jamshid",
-  "active": true,
-  "date_of_join": "3/23/2024",
-  "phone": "+998775634",
-  "status": true, 
-  "url":"http://localhost:5173/src/pictures/login.png",
-  "__v": 0
-}), 3000);
+// setTimeout(() => resolve({
+//   "_id": {
+//     "$oid": "65fdd8d1c318369b559fad4e"
+//   },
+//   "name": "Ergashev",
+//   "date_of_brith": "9/23/2002",
+//   "surname": "Jamshid",
+//   "active": true,
+//   "date_of_join": "3/23/2024",
+//   "phone": "+998775634",
+//   "status": true, 
+//   "url":"http://localhost:5173/src/pictures/login.png",
+//   "__v": 0
+// }), 3000);
 
-setTimeout(() => reject(new Error("ignored")),  5000);
+// setTimeout(() => reject(new Error("ignored")),  5000);
 
-});
 try {
-  let info = await backend;
-  data = info;
-  console.log(data)
+  let info = await fetch(`${url.dean}/profil/${localStorage.token}`,{
+    method:"GET",
+    headers:{
+      token:localStorage.getItem("token")
+    }
+  }) ;
+  if(info.status != 200) return router.push("/")
+  info = await info.json();
+  data.value = info.user;
   
 } catch (error) {
   console.log("xatolik", error)
 }
-
 });
 
-  let fa = h("div", {innerHTML:"Jamshid"})
-  console.log(fa)
+
+
   const option = reactive(
   [
         {
@@ -160,15 +164,15 @@ try {
           h("img", {
         round: true,
         style: "margin-right: 8px;",
-        src: data.url,
+        src: data.value.url,
         class:"w-[60px] rounded-md m-3",
-        title: `${data.name } ${data.surname }`
+        title: `${data.value.name } ${data.value.surname }`
       }),
 
       h('div',
       [
       h("div",{class:"text-[13px] font-bold"},h("div",
-      {innerHTML :`${data.name } ${data.surname }`}
+      {innerHTML :`${data.value.name } ${data.value.surname }`}
       )),
       
       h("div",{class:"text-[13px] text-center"},h("div",
@@ -248,7 +252,7 @@ try {
         onMaskClick: () => {
         return ;          },
         onPositiveClick:() => {
-        return router.push("/")          },
+        localStorage.setItem("token","");router.push("/");return;          },
         onEsc: () => {
         useMessage().success("Siz tizimda qoldingiz");
         }});
