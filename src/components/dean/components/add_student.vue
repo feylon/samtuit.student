@@ -3,7 +3,7 @@
     <div class="font-bold text-[18px] mb-3">Talabani qo'shish</div>
 
 <n-form 
-    class="w-[100%] flex flex-wrap md:justify-around lg:justify-start gap-3"
+    class="w-[100%]   sm:justify-center flex flex-wrap md:justify-center lg:justify-start lg:gap-3"
     ref="formRef"
     inline
     :label-width="80"
@@ -28,7 +28,7 @@
     <n-form-item label="Familiya" path="surname">
       <n-input v-model:value="formValue.surname" placeholder="Familiyani kiriting" />
     </n-form-item>
-    <n-form-item>
+    
 
     <n-form-item label="Tug'ilgan kuni" path="date_of_brith">
       <n-date-picker v-model:value="formValue.date_of_brith" placeholder="Tug'ilgan kuni" type="date" />
@@ -48,12 +48,15 @@
     <n-form-item label="Telefon raqami" path="phone">
       <n-input v-model:value="formValue.phone" placeholder="Raqamni kiriting" />
     </n-form-item>
-    <n-button @click="send">
+    <n-form-item>
+
+      <n-button @click="send">
         Qo'shish
       </n-button>
     </n-form-item>
+    
 </n-form>
-
+lorem2000
 </div>
 </template>
 <script setup>

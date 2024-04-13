@@ -7,7 +7,7 @@ import students from "../src/components/dean/students.vue"
 // Dekan uchun routerlar
 const dean = 
 [
-{path:"/students", component:students}
+{path:"/dean_dashtboard/students", component:students}
 ]
 
 export default

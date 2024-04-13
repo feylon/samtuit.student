@@ -36,55 +36,34 @@
 </div>  
 <!-- Navigation tugadi -->
 
-<div class="flex  h-[100%] h-max-[100%] ">
   
 
-  <n-layout class="m-0 w-auto" has-sider >
-    <n-layout-sider 
-      bordered
-      class="bg-black text-white"
-      collapse-mode="width"
-      :collapsed-width="64"
-      :width="240"
-      :collapsed="collapsed"
-      :background-color="'black'"
-      show-trigger
-      @collapse="collapsed = true"
-      @expand="collapsed = false"
-      
+  
+<div class="h-[100%]">
+  <n-layout has-sider class="h-[100%] ">
+      <n-layout-sider
+      class="h-[100%] "
+        bordered
+        collapse-mode="width"
+        :collapsed-width="64"
+        :width="240"
+        show-trigger
+        :inverted="menu_show"
       >
-    <div class="flex flex-col items-center pt-4 justify-start h-[100%]">
-      
-      <n-menu
-          :inverted="inverted"
+        <n-menu
+          :inverted="menu_show"
           :collapsed-width="64"
           :collapsed-icon-size="22"
           :options="menuOptions"
         />
-
-
-     <div @click="router.push('/students')" :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
-      <span class="rounded-lg bg-blue-600 p-3">
-        <i class="fas fa-user-group"></i>
-</span>
-      <span :class="collapsed?'hidden':''" >
-      Talabalar
-</span>    </div>
-     
-    </div>
-  
-    </n-layout-sider>
-      <div class="p-10 overflow-x-auto w-max-[100%] w-[100%]">
-        <RouterView>
-          
-        </RouterView>
-      </div>
-
-
-    <n-layout />
-  </n-layout>
-
-  
+      </n-layout-sider>
+      <n-layout>
+        <div class="m-[20px]">
+       
+         <RouterView></RouterView>
+        </div>
+      </n-layout>
+    </n-layout>
 </div>
 </div> 
 
@@ -104,7 +83,7 @@ import url from "../../../reuseble";
 // * o'zgaruvhcilari 
 const dialog = useDialog();
 const message = useMessage();
-let collapsed = ref(false);
+
 const router = useRouter();
 
 //  o'zgaruvhcilari 
@@ -262,17 +241,35 @@ try {
       ])
       
 // Yon menyu uchun
-let inverted = ref(false)
+
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) });
 }
-
-const menuOptions = [
+function render_mbd_icon(name){
+  return () =>h("i",
+  {class:name}
+  )
+}
+const menuOptions = ref(
+  [
   {
-    label: "Hear the Wind Sing",
-    key: "hear-the-wind-sing",
-    icon: renderIcon(BookIcon)
+    label:() => h(
+      RouterLink,
+      {
+        to: "/dean_dashtboard/students",
+      },
+       { default:()=>"Ma'lumotlarni qo'shish"}
+      ),
+      
+     
+      
+      
+    
+    key: "Add_info",
+    icon: render_mbd_icon("fas fa-square-plus"),
+    
   },
+
   {
     label: "Pinball 1973",
     key: "pinball-1973",
@@ -340,8 +337,10 @@ const menuOptions = [
       }
     ]
   }
-];
-
+]
+)
+let menu_show = ref(true)
+     
 </script>
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
