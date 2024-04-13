@@ -27,7 +27,6 @@
     <span class="block ms-2 mt-2 font-bold profil text-[13px]">  {{`${data.name } ${data.surname }` }}</span>
 <span class="block mb-3 text-[11px] text-center">
     Dekan  
-    <span v-show="false">{{itr}}</span>
 </span>
 </div>
 </div>
@@ -55,7 +54,15 @@
       
       >
     <div class="flex flex-col items-center pt-4 justify-start h-[100%]">
-      <!-- <router-link> -->
+      
+      <n-menu
+          :inverted="inverted"
+          :collapsed-width="64"
+          :collapsed-icon-size="22"
+          :options="menuOptions"
+        />
+
+
      <div @click="router.push('/students')" :class="collapsed?'pe-0':'pe-[40px] hover:bg-green-600'" class="w-[170px]  select-none cursor-pointer  rounded-lg flex items-center justify-evenly  duration-1000  p-1 pt-2 pb-2">
       <span class="rounded-lg bg-blue-600 p-3">
         <i class="fas fa-user-group"></i>
@@ -63,11 +70,11 @@
       <span :class="collapsed?'hidden':''" >
       Talabalar
 </span>    </div>
-      <!-- </router-link> -->
+     
     </div>
-      <!-- <n-menu :options="menuOptions" /> -->
+  
     </n-layout-sider>
-      <div class="p-10 w-[100%]">
+      <div class="p-10 overflow-x-auto w-max-[100%] w-[100%]">
         <RouterView>
           
         </RouterView>
@@ -89,8 +96,9 @@ import { onMounted, onUnmounted, ref, h, reactive } from 'vue';
 import { RouterLink,useRouter } from 'vue-router';
 import { NIcon,  useDialog, useMessage } from "naive-ui";
 import {
-  LaptopOutline as WorkIcon,
-  LogOutOutline as HomeIcon
+  BookOutline as BookIcon,
+  PersonOutline as PersonIcon,
+  WineOutline as WineIcon
 } from "@vicons/ionicons5";
 import url from "../../../reuseble";
 // * o'zgaruvhcilari 
@@ -103,37 +111,13 @@ const router = useRouter();
 
 
 
-  let itr = ref(0)
-  setInterval(() => {
-    // itr.value ++
-  }, 500);
   let data = ref({
     name:"",
-    surname:"",
-    // url:"http://localhost:5173/src/pictures/user.png"
-    // urk :new URL("../../pictures/user.png", import.meta.url)
+    surname:""
   });
-import "../../pictures/user.png"
 
   onMounted( async ()=>{
-// let backend =   new Promise((resolve, reject) => {
 
-// setTimeout(() => resolve({
-//   "_id": {
-//     "$oid": "65fdd8d1c318369b559fad4e"
-//   },
-//   "name": "Ergashev",
-//   "date_of_brith": "9/23/2002",
-//   "surname": "Jamshid",
-//   "active": true,
-//   "date_of_join": "3/23/2024",
-//   "phone": "+998775634",
-//   "status": true, 
-//   "url":"http://localhost:5173/src/pictures/login.png",
-//   "__v": 0
-// }), 3000);
-
-// setTimeout(() => reject(new Error("ignored")),  5000);
 
 try {
   let info = await fetch(`${url.dean}/profil/${localStorage.token}`,{
@@ -278,8 +262,85 @@ try {
       ])
       
 // Yon menyu uchun
+let inverted = ref(false)
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) });
+}
 
-
+const menuOptions = [
+  {
+    label: "Hear the Wind Sing",
+    key: "hear-the-wind-sing",
+    icon: renderIcon(BookIcon)
+  },
+  {
+    label: "Pinball 1973",
+    key: "pinball-1973",
+    icon: renderIcon(BookIcon),
+    disabled: true,
+    children: [
+      {
+        label: "Rat",
+        key: "rat"
+      }
+    ]
+  },
+  {
+    label: "A Wild Sheep Chase",
+    key: "a-wild-sheep-chase",
+    disabled: true,
+    icon: renderIcon(BookIcon)
+  },
+  {
+    label: "Dance Dance Dance",
+    key: "Dance Dance Dance",
+    icon: renderIcon(BookIcon),
+    children: [
+      {
+        type: "group",
+        label: "People",
+        key: "people",
+        children: [
+          {
+            label: "Narrator",
+            key: "narrator",
+            icon: renderIcon(PersonIcon)
+          },
+          {
+            label: "Sheep Man",
+            key: "sheep-man",
+            icon: renderIcon(PersonIcon)
+          }
+        ]
+      },
+      {
+        label: "Beverage",
+        key: "beverage",
+        icon: renderIcon(WineIcon),
+        children: [
+          {
+            label: "Whisky",
+            key: "whisky"
+          }
+        ]
+      },
+      {
+        label: "Food",
+        key: "food",
+        children: [
+          {
+            label: "Sandwich",
+            key: "sandwich"
+          }
+        ]
+      },
+      {
+        label: "The past increases. The future recedes.",
+        key: "the-past-increases-the-future-recedes"
+      }
+    ]
+  }
+];
 
 </script>
     <style>
