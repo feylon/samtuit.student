@@ -256,7 +256,7 @@ const menuOptions = ref(
     label:() => h(
       RouterLink,
       {
-        to: "/dean_dashtboard/students",
+        to: "/dean_dashtboard/add_info",
       },
        { default:()=>"Ma'lumotlarni qo'shish"}
       ),
@@ -270,71 +270,27 @@ const menuOptions = ref(
     
   },
 
+
+ 
   {
-    label: "Pinball 1973",
-    key: "pinball-1973",
-    icon: renderIcon(BookIcon),
-    disabled: true,
-    children: [
-      {
-        label: "Rat",
-        key: "rat"
-      }
-    ]
-  },
-  {
-    label: "A Wild Sheep Chase",
-    key: "a-wild-sheep-chase",
-    disabled: true,
-    icon: renderIcon(BookIcon)
-  },
-  {
-    label: "Dance Dance Dance",
-    key: "Dance Dance Dance",
-    icon: renderIcon(BookIcon),
+    label: "Kabinet",
+    key: "Kabinet_dean",
+    icon: render_mbd_icon("fas fa-circle-info"),
     children: [
       {
         type: "group",
-        label: "People",
+        label:() => h(
+      RouterLink,
+      {
+        to: "/dean_dashtboard/own_info",
+      },
+       { default:()=>"Shaxsiy ma'lumotlar"}
+      ),
         key: "people",
-        children: [
-          {
-            label: "Narrator",
-            key: "narrator",
-            icon: renderIcon(PersonIcon)
-          },
-          {
-            label: "Sheep Man",
-            key: "sheep-man",
-            icon: renderIcon(PersonIcon)
-          }
-        ]
+        icon:render_mbd_icon("fas fa-user-pen")
       },
-      {
-        label: "Beverage",
-        key: "beverage",
-        icon: renderIcon(WineIcon),
-        children: [
-          {
-            label: "Whisky",
-            key: "whisky"
-          }
-        ]
-      },
-      {
-        label: "Food",
-        key: "food",
-        children: [
-          {
-            label: "Sandwich",
-            key: "sandwich"
-          }
-        ]
-      },
-      {
-        label: "The past increases. The future recedes.",
-        key: "the-past-increases-the-future-recedes"
-      }
+    
+      
     ]
   }
 ]

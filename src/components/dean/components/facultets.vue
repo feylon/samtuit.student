@@ -1,6 +1,6 @@
 <template>
-    <div class="w-[100%] p-3 shadow-lg">
-        <div class="font-bold text-[18px] mb-3">Fakultetlar</div>
+    <div :class="class1.easy_card">
+        <div :class="class1.easy_card_label">Fakultetlar</div>
 
         <n-table :bordered="false" :single-line="false">
             <thead>
@@ -78,6 +78,7 @@ import { ref, onMounted, reactive } from "vue";
 import { useMessage, useDialog } from "naive-ui";
 import { useRouter } from "vue-router";
 import url from "../../../../reuseble";
+import class1 from "../../../../reuseble/class.js"
 
 const router = useRouter();
 const message = useMessage();

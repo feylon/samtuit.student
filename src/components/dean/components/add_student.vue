@@ -1,6 +1,6 @@
 <template>
-<div class="w-[100%] p-3 shadow-lg mb-[20px] roundedn-lg">
-    <div class="font-bold text-[18px] mb-3">Talabani qo'shish</div>
+<div :class="class1.easy_card">
+    <div :class="class1.easy_card_label">Talabani qo'shish</div>
 
 <n-form 
     class="w-[100%]   sm:justify-center flex flex-wrap md:justify-center lg:justify-start lg:gap-3"
@@ -56,14 +56,15 @@
     </n-form-item>
     
 </n-form>
-lorem2000
+
 </div>
 </template>
 <script setup>
 import {ref, reactive} from "vue";
 import { useRouter } from "vue-router";
 import {useMessage} from "naive-ui";
-import url from "../../../../reuseble"
+import url from "../../../../reuseble";
+import class1 from "../../../../reuseble/class.js"
 const message = useMessage();
 const router = useRouter();
 let login = ref("");
